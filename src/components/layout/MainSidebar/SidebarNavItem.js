@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 const SidebarNavItem = ({ item }) => {
   // const [linkDisabled] = React.useState(true)
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.preventDefault();
-  }
+  };
   return (
     <ul className="nav--no-borders flex-column nav">
       <li onClick={handleClick} style={{ padding: "0 5px", cursor: "pointer" }}>
@@ -24,7 +24,7 @@ const SidebarNavItem = ({ item }) => {
         )}
       </li>
     </ul>
-  )
+  );
 };
 
 SidebarNavItem.propTypes = {

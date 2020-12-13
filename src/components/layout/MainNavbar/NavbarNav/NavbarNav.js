@@ -6,6 +6,5 @@ import Notifications from "./Notifications";
 export default () => (
   <Nav navbar className="border-left flex-row">
     <Notifications />
-
   </Nav>
 );

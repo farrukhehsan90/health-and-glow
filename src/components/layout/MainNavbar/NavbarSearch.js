@@ -7,13 +7,12 @@ import {
   FormInput
 } from "shards-react";
 
-export default (props) => {
-  let [search, setSearch] = useState("")
-  let handleInputChange = (e) => {
-    props.func(e.target.value)
-    setSearch(e.target.value)
-
-  }
+export default props => {
+  let [search, setSearch] = useState("");
+  let handleInputChange = e => {
+    props.func(e.target.value);
+    setSearch(e.target.value);
+  };
   return (
     <Form className="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
       <InputGroup seamless className="ml-3">
@@ -22,15 +21,18 @@ export default (props) => {
             <i className="material-icons">search</i>
           </InputGroupText>
         </InputGroupAddon>
-        < FormInput
+        <FormInput
           onChange={e => handleInputChange(e)}
           value={search}
           className="navbar-search"
           placeholder="Search for something..."
         />
         <button type="button" onClick={props.btn} className="btn ">
-          <i style={{ fontSize: 16 }} className="material-icons">search</i></button>
+          <i style={{ fontSize: 16 }} className="material-icons">
+            search
+          </i>
+        </button>
       </InputGroup>
     </Form>
-  )
+  );
 };

@@ -1,4 +1,3 @@
-
 // Layout Types
 import { DefaultLayout } from "./layouts";
 
@@ -14,7 +13,7 @@ export default [
     // component: () => <Redirect to="/blog-overview" />
     // component: () => <Redirect to="/blog-posts" />
     component: BlogPosts
-  },
+  }
   // {
   //   path: "/blog-posts",
   //   layout: DefaultLayout,

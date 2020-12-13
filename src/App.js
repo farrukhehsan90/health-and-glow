@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 
 export default () => {
-  console.warn = () => { }
+  console.warn = () => {};
   return (
     <Router basename={process.env.REACT_APP_BASENAME || ""}>
       <div>
@@ -18,7 +18,7 @@ export default () => {
               key={index}
               path={route.path}
               exact={route.exact}
-              component={withTracker(props => {
+              component={withTracker((props) => {
                 return (
                   <route.layout {...props}>
                     <route.component {...props} />
@@ -30,5 +30,5 @@ export default () => {
         })}
       </div>
     </Router>
-  )
+  );
 };

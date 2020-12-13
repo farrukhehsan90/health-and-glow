@@ -39,9 +39,7 @@ class SidebarMainNavbar extends React.Component {
                 alt="Health & Glow"
               />
               {!hideLogoText && (
-                <span className="d-none d-md-inline ml-1">
-                  Health & Glow
-                </span>
+                <span className="d-none d-md-inline ml-1">Health & Glow</span>
               )}
             </div>
           </NavbarBrand>

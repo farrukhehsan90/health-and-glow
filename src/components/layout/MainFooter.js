@@ -40,9 +40,7 @@ MainFooter.propTypes = {
 MainFooter.defaultProps = {
   contained: false,
   copyright: "Copyright © Health and Glow",
-  menuItems: [
-
-  ]
+  menuItems: []
 };
 
 export default MainFooter;
