@@ -37,13 +37,10 @@ class ApiSauce {
     });
   }
 
-  async get(url, payload) {
-    api.setHeaders({
-      'Content-Type': 'application/json',
-    });
+  async get(url) {
+    
 
-    const response = await api.get(url, payload);
-
+    const response = await api.get(url);
     return new Promise((resolve, reject) => {
       this.handlePromise(resolve, reject, response);
     });

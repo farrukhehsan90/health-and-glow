@@ -3,6 +3,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import axios from "axios";
+import { request as blogpost } from "../redux/actions/blogData";
 import { Container, Row, Col, Card, CardBody, Badge } from "shards-react";
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import Pagination from "react-js-pagination";
@@ -37,27 +38,29 @@ class BlogPosts extends React.Component {
           check: false,
         },
       ],
-      PostsListOne: this.props.blogData.data,
-      postlist:this.props.blogData.data
+      PostsListOne:[],
+
     };
   }
   componentDidMount() {
     let url =
       "https://staging.healthandglow.com/api/catalog/product/v6/search/989?app=web&version=3.0.2&page=0:20";
-    this.getData(url);
+   
+   this.props.blogpost(url)
+      // this.props.blogpost(url)
+    
   }
   
-  getData = (url) => {
-    axios
-      .get(url)
-      .then((res) => {
-        // console.log(res, 'res');
-        this.setState({ res: res.data, PostsListOne: res.data.data.products });
-      })
-      .catch((err) => {
-        console.log(err, "err");
-      });
-  };
+UNSAFE_componentWillReceiveProps(nextProps){
+  if(nextProps){
+
+    if(nextProps.blogData && nextProps.blogData.data){
+    this.setState({ res: nextProps.blogData.data, PostsListOne: nextProps.blogData.data.data.products });
+
+    }
+  }
+}
+
 
   handlePageChange = (pageNumber) => {
     // console.log(`active page is ${pageNumber}`);
@@ -69,7 +72,7 @@ class BlogPosts extends React.Component {
     if (search === !"") {
       let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=${this.state.search}&page=0:20`;
 
-      this.getData(url);
+      this.props.blogpost(url)
     } else {
       alert("No Search Text");
     }
@@ -83,19 +86,20 @@ class BlogPosts extends React.Component {
       !!selectedCateg ? selectedCateg.value : ""
     }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}`;
 
-    this.getData(url);
+    this.props.blogpost(url)
   };
   handleSort = () => {
     const { shade, category, sort } = this.state;
     let selectedCateg = category.find((v) => v.check);
     let shadeTrueValue = shade.find((v) => v.check);
-    let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=loreal-paris&page=0:20&category=${
+    let url = 
+    `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=loreal-paris&page=0:20&category=${
       !!selectedCateg ? selectedCateg.value : ""
     }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}&sort=discount:${
       !sort ? "" : sort
     }`;
 
-    this.getData(url);
+    this.props.blogpost(url)
   };
   render() {
     const {
@@ -470,7 +474,7 @@ class BlogPosts extends React.Component {
 }
 const mapStateToProps = (state) => ({blogData: state.blog});
 
-const action = {};
+const action = {blogpost};
 
 export default connect(mapStateToProps, action)(BlogPosts);
 
