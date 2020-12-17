@@ -69,7 +69,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
   searchFun = () => {
     let { search } = this.state;
 
-    if (search === !"") {
+    if (search !== "") {
       let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=${this.state.search}&page=0:20`;
 
       this.props.blogpost(url)
