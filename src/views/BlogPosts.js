@@ -1,8 +1,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from "react";
-import { connect } from 'react-redux';
-import axios from "axios";
+import { connect } from "react-redux";
 import { request as blogpost } from "../redux/actions/blogData";
 import { Container, Row, Col, Card, CardBody, Badge } from "shards-react";
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
@@ -23,46 +22,44 @@ class BlogPosts extends React.Component {
         {
           id: 1,
           value: "lipstick",
-          check: false,
-        },
+          check: false
+        }
       ],
       shade: [
         {
           id: 1,
           value: "Maroon",
-          check: false,
+          check: false
         },
         {
           id: 2,
           value: "Red",
-          check: false,
-        },
+          check: false
+        }
       ],
-      PostsListOne:[],
-
+      PostsListOne: []
     };
   }
   componentDidMount() {
     let url =
       "https://staging.healthandglow.com/api/catalog/product/v6/search/989?app=web&version=3.0.2&page=0:20";
-   
-   this.props.blogpost(url)
-      // this.props.blogpost(url)
-    
+
+    this.props.blogpost(url);
+    // this.props.blogpost(url)
   }
-  
-UNSAFE_componentWillReceiveProps(nextProps){
-  if(nextProps){
 
-    if(nextProps.blogData && nextProps.blogData.data){
-    this.setState({ res: nextProps.blogData.data, PostsListOne: nextProps.blogData.data.data.products });
-
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps) {
+      if (nextProps.blogData && nextProps.blogData.data) {
+        this.setState({
+          res: nextProps.blogData.data,
+          PostsListOne: nextProps.blogData.data.data.products
+        });
+      }
     }
   }
-}
 
-
-  handlePageChange = (pageNumber) => {
+  handlePageChange = pageNumber => {
     // console.log(`active page is ${pageNumber}`);
     this.setState({ activePage: pageNumber });
   };
@@ -72,7 +69,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
     if (search !== "") {
       let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=${this.state.search}&page=0:20`;
 
-      this.props.blogpost(url)
+      this.props.blogpost(url);
     } else {
       alert("No Search Text");
     }
@@ -80,26 +77,25 @@ UNSAFE_componentWillReceiveProps(nextProps){
 
   handleShadeFilter = () => {
     const { shade, category } = this.state;
-    let selectedCateg = category.find((v) => v.check);
-    let shadeTrueValue = shade.find((v) => v.check);
+    let selectedCateg = category.find(v => v.check);
+    let shadeTrueValue = shade.find(v => v.check);
     let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=loreal-paris&page=0:20&category=${
       !!selectedCateg ? selectedCateg.value : ""
     }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}`;
 
-    this.props.blogpost(url)
+    this.props.blogpost(url);
   };
   handleSort = () => {
     const { shade, category, sort } = this.state;
-    let selectedCateg = category.find((v) => v.check);
-    let shadeTrueValue = shade.find((v) => v.check);
-    let url = 
-    `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=loreal-paris&page=0:20&category=${
+    let selectedCateg = category.find(v => v.check);
+    let shadeTrueValue = shade.find(v => v.check);
+    let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=loreal-paris&page=0:20&category=${
       !!selectedCateg ? selectedCateg.value : ""
     }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}&sort=discount:${
       !sort ? "" : sort
     }`;
 
-    this.props.blogpost(url)
+    this.props.blogpost(url);
   };
   render() {
     const {
@@ -108,7 +104,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
       category,
       isRow,
       activePage,
-      shade,
+      shade
     } = this.state;
     let indexOfLastTodo = activePage * itemPerPage;
     let indexOfFirstTodo = indexOfLastTodo - itemPerPage;
@@ -121,7 +117,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
       <Container fluid className="main-content-container px-4">
         <MainNavbar
           btn={this.searchFun}
-          func={(e) => {
+          func={e => {
             this.setState({ search: e });
           }}
         />
@@ -288,9 +284,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
                         name="sort"
                         id="popula"
                         value="asc"
-                        onChange={(e) =>
-                          this.setState({ sort: e.target.value })
-                        }
+                        onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label
                         className="form-check-label w-100"
@@ -308,9 +302,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
                         name="sort"
                         id="desc"
                         value="desc"
-                        onChange={(e) =>
-                          this.setState({ sort: e.target.value })
-                        }
+                        onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="desc">
                         Discount
@@ -325,9 +317,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
                         name="sort"
                         id="hlac"
                         value="asc"
-                        onChange={(e) =>
-                          this.setState({ sort: e.target.value })
-                        }
+                        onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="hlac">
                         High - Low
@@ -342,9 +332,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
                         name="sort"
                         id="lhac"
                         value="desc"
-                        onChange={(e) =>
-                          this.setState({ sort: e.target.value })
-                        }
+                        onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="lhac">
                         Low - High
@@ -408,7 +396,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
                           <div className="col-12">
                             <input
                               type="checkbox"
-                              onChange={(e) => {
+                              onChange={e => {
                                 v.check = !v.check;
                                 let newShade = [...category];
                                 newShade[v.id - 1] = v;
@@ -433,7 +421,7 @@ UNSAFE_componentWillReceiveProps(nextProps){
                           <div className="col-12">
                             <input
                               type="checkbox"
-                              onChange={(e) => {
+                              onChange={e => {
                                 v.check = !v.check;
                                 let newShade = [...shade];
                                 newShade[v.id - 1] = v;
@@ -472,9 +460,8 @@ UNSAFE_componentWillReceiveProps(nextProps){
     );
   }
 }
-const mapStateToProps = (state) => ({blogData: state.blog});
+const mapStateToProps = state => ({ blogData: state.blog });
 
-const action = {blogpost};
+const action = { blogpost };
 
 export default connect(mapStateToProps, action)(BlogPosts);
-

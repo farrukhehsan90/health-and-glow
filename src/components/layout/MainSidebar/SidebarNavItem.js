@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const SidebarNavItem = ({ item }) => {
-  // const [linkDisabled] = React.useState(true)
   const handleClick = e => {
     e.preventDefault();
   };

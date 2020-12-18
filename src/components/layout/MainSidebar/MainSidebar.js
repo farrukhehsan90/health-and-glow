@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Col } from "shards-react";
@@ -9,51 +9,40 @@ import SidebarNavItems from "./SidebarNavItems";
 
 import { Store } from "../../../flux";
 
-class MainSidebar extends React.Component {
-  constructor(props) {
-    super(props);
+const MainSidebar = ({ hideLogoText }) => {
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [sidebarNavItems, setSidebarNavItems] = useState(
+    Store.getSidebarItems()
+  );
 
-    this.state = {
-      menuVisible: false,
-      sidebarNavItems: Store.getSidebarItems()
-    };
+  useLayoutEffect(() => {
+    Store.addChangeListener(onChange);
+  }, []);
 
-    this.onChange = this.onChange.bind(this);
-  }
+  useEffect(() => {
+    return () => Store.removeChangeListener(onChange);
+  }, []);
 
-  componentWillMount() {
-    Store.addChangeListener(this.onChange);
-  }
+  const onChange = () => {
+    setMenuVisible(Store.getMenuState());
+    setSidebarNavItems(Store.getSidebarItems());
+  };
 
-  componentWillUnmount() {
-    Store.removeChangeListener(this.onChange);
-  }
+  const classes = classNames(
+    "main-sidebar",
+    "px-0",
+    "col-12",
+    menuVisible && "open"
+  );
 
-  onChange() {
-    this.setState({
-      ...this.state,
-      menuVisible: Store.getMenuState(),
-      sidebarNavItems: Store.getSidebarItems()
-    });
-  }
-
-  render() {
-    const classes = classNames(
-      "main-sidebar",
-      "px-0",
-      "col-12",
-      this.state.menuVisible && "open"
-    );
-
-    return (
-      <Col tag="aside" className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
-        <SidebarMainNavbar hideLogoText={this.props.hideLogoText} />
-        <SidebarSearch />
-        <SidebarNavItems />
-      </Col>
-    );
-  }
-}
+  return (
+    <Col tag="aside" className={classes} lg={{ size: 2 }} md={{ size: 3 }}>
+      <SidebarMainNavbar hideLogoText={hideLogoText} />
+      <SidebarSearch />
+      <SidebarNavItems />
+    </Col>
+  );
+};
 
 MainSidebar.propTypes = {
   /**

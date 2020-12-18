@@ -3,14 +3,13 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import routes from "./routes";
 import withTracker from "./withTracker";
-import { Provider } from 'react-redux';
-import Store from './redux/store';
+import { Provider } from "react-redux";
+import Store from "./redux/store";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
+import "./health-and-glow-dashboard/styles/shards-dashboards.1.1.0.min.css";
 const store = Store();
 
 export default () => {
-  console.warn = () => { };
   return (
     <Provider store={store}>
       <Router basename={process.env.REACT_APP_BASENAME || ""}>
@@ -21,7 +20,7 @@ export default () => {
                 key={index}
                 path={route.path}
                 exact={route.exact}
-                component={withTracker((props) => {
+                component={withTracker(props => {
                   return (
                     <route.layout {...props}>
                       <route.component {...props} />

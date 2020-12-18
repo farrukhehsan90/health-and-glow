@@ -1,38 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavItem, NavLink } from "shards-react";
 
-export default class Notifications extends React.Component {
-  constructor(props) {
-    super(props);
+const Notifications = () => {
+  const [visible, setVisible] = useState(false);
 
-    this.state = {
-      visible: false
-    };
+  const toggleNotifications = () => {
+    setVisible(!visible);
+  };
 
-    this.toggleNotifications = this.toggleNotifications.bind(this);
-  }
+  return (
+    <NavItem className="border-right dropdown notifications">
+      <NavLink
+        className="nav-link-icon text-center"
+        onClick={toggleNotifications}
+      >
+        <div className="nav-link-icon__wrapper">
+          <i className="material-icons">&#xf217;</i>
+        </div>
+      </NavLink>
+    </NavItem>
+  );
+};
 
-  toggleNotifications() {
-    this.setState({
-      visible: !this.state.visible
-    });
-  }
-
-  render() {
-    return (
-      <NavItem className="border-right dropdown notifications">
-        <NavLink
-          className="nav-link-icon text-center"
-          onClick={this.toggleNotifications}
-        >
-          <div className="nav-link-icon__wrapper">
-            <i className="material-icons">&#xf217;</i>
-            {/* <Badge pill theme="danger">
-              2
-            </Badge> */}
-          </div>
-        </NavLink>
-      </NavItem>
-    );
-  }
-}
+export default Notifications;
