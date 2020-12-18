@@ -6,6 +6,8 @@ import {
   InputGroupAddon,
   InputGroupText
 } from "shards-react";
+import en from "../../../locales/en.json"
+
 
 export default () => (
   <Form
@@ -15,7 +17,7 @@ export default () => (
     <InputGroup seamless className="ml-3">
       <InputGroupAddon type="prepend">
         <InputGroupText>
-          <i className="material-icons">search</i>
+          <i className="material-icons">{en["Search"]}</i>
         </InputGroupText>
         <FormInput
           className="navbar-search"

@@ -6,6 +6,7 @@ import {
   InputGroupText,
   FormInput
 } from "shards-react";
+import en from "../../../locales/en.json";
 
 export default props => {
   let [search, setSearch] = useState("");
@@ -18,7 +19,7 @@ export default props => {
       <InputGroup seamless className="ml-3">
         <InputGroupAddon type="prepend">
           <InputGroupText>
-            <i className="material-icons">search</i>
+            <i className="material-icons">{en["Search"]}</i>
           </InputGroupText>
         </InputGroupAddon>
         <FormInput

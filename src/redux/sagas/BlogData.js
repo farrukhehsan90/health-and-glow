@@ -12,7 +12,6 @@ function* watchRequest() {
     const { payload } = yield take(types.BLOG_DATA.REQUEST);
     try {
       const response = yield call(callRequest, payload);
-      console.log(response);
       yield put(success(response));
     } catch (err) {
       yield put(failure(err));

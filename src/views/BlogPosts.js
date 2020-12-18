@@ -5,7 +5,9 @@ import { connect } from "react-redux";
 import { request as blogpost } from "../redux/actions/blogData";
 import { Container, Row, Col, Card, CardBody, Badge } from "shards-react";
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
+import en from "../locales/en.json";
 import Pagination from "react-js-pagination";
+
 class BlogPosts extends React.Component {
   constructor(props) {
     super(props);
@@ -145,7 +147,7 @@ class BlogPosts extends React.Component {
                 data-target="#exampleModalCenter"
                 className="btn btn-outline-primary  btn-block"
               >
-                Sort
+                {en["Sort"]}
               </button>
             </div>
             <div className="col-5">
@@ -155,7 +157,7 @@ class BlogPosts extends React.Component {
                 data-target="#exampleModalCenter1"
                 className="btn btn-outline-primary  btn-block"
               >
-                Filter
+                {en["Filter"]}
               </button>
             </div>
           </div>
@@ -187,7 +189,7 @@ class BlogPosts extends React.Component {
                       style={{ color: "red", marginLeft: -10 }}
                       className="material-icons"
                     >
-                      favorite
+                      {en["Favorite"]}
                     </span>
                     {/* <div className="card-post__author d-flex">
                     <a
@@ -225,8 +227,8 @@ class BlogPosts extends React.Component {
                             style={{ fontSize: 14 }}
                             className="material-icons"
                           >
-                            star
-                          </span>{" "}
+                            {en["Star"]}
+                          </span>
                           {post.skuAverageRating ? post.skuAverageRating : 0}
                         </h6>
                       </div>
@@ -238,7 +240,7 @@ class BlogPosts extends React.Component {
           ) : (
             <Card small className="card-post card-post--1 my-10 btn-block">
               <CardBody>
-                <h3 className="mx-10">Not Data Found</h3>
+                <h3 className="mx-10">{en["Not Data Found"]}</h3>
               </CardBody>
             </Card>
           )}
@@ -263,7 +265,7 @@ class BlogPosts extends React.Component {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLongTitle">
-                  Sort List
+                  {en["Sort List"]}
                 </h5>
                 <button
                   type="button"
@@ -290,7 +292,7 @@ class BlogPosts extends React.Component {
                         className="form-check-label w-100"
                         htmlFor="popula"
                       >
-                        Popularity
+                        {en["Popularity"]}
                       </label>
                     </div>
                   </li>
@@ -305,7 +307,7 @@ class BlogPosts extends React.Component {
                         onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="desc">
-                        Discount
+                        {en["Discount"]}
                       </label>
                     </div>
                   </li>
@@ -320,7 +322,7 @@ class BlogPosts extends React.Component {
                         onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="hlac">
-                        High - Low
+                        {en["High - Low"]}
                       </label>
                     </div>
                   </li>
@@ -335,7 +337,7 @@ class BlogPosts extends React.Component {
                         onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="lhac">
-                        Low - High
+                        {en["Low - High"]}
                       </label>
                     </div>
                   </li>
@@ -349,7 +351,7 @@ class BlogPosts extends React.Component {
                   className="btn btn-outline-primary btn-block"
                   onClick={() => this.handleSort()}
                 >
-                  Sort
+                  {en["Sort"]}
                 </button>
               </div>
             </div>

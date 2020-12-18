@@ -5,7 +5,7 @@ import { Container, Row, Col } from "shards-react";
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
 import MainFooter from "../components/layout/MainFooter";
 
-const DefaultLayout = ({ children, noNavbar, noFooter }) => (
+const DefaultLayout = ({ children, noFooter }) => (
   <Container fluid>
     <Row>
       <MainSidebar />
