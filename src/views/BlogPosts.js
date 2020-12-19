@@ -4,6 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { request as blogpost } from "../redux/actions/blogData";
 import { Container, Row, Col, Card, CardBody, Badge } from "shards-react";
+import { BASE_URL, GET_PRODUCTS, PRODUCT, SEARCH } from "../config/WebServices";
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import en from "../locales/en.json";
 import Pagination from "react-js-pagination";
@@ -43,8 +44,7 @@ class BlogPosts extends React.Component {
     };
   }
   componentDidMount() {
-    let url =
-      "https://staging.healthandglow.com/api/catalog/product/v6/search/989?app=web&version=3.0.2&page=0:20";
+    let url = `${BASE_URL}/${GET_PRODUCTS}`;
 
     this.props.blogpost(url);
     // this.props.blogpost(url)
@@ -69,7 +69,7 @@ class BlogPosts extends React.Component {
     let { search } = this.state;
 
     if (search !== "") {
-      let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=${this.state.search}&page=0:20`;
+      let url = `${BASE_URL}/${PRODUCT}&tag=${this.state.search}&page=0:20`;
 
       this.props.blogpost(url);
     } else {
@@ -81,7 +81,7 @@ class BlogPosts extends React.Component {
     const { shade, category } = this.state;
     let selectedCateg = category.find(v => v.check);
     let shadeTrueValue = shade.find(v => v.check);
-    let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=loreal-paris&page=0:20&category=${
+    let url = `${BASE_URL}/${SEARCH}=${
       !!selectedCateg ? selectedCateg.value : ""
     }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}`;
 
@@ -91,7 +91,7 @@ class BlogPosts extends React.Component {
     const { shade, category, sort } = this.state;
     let selectedCateg = category.find(v => v.check);
     let shadeTrueValue = shade.find(v => v.check);
-    let url = `https://staging.healthandglow.com/api/catalog/product/v6/search/999?app=web&version=3.0.2&tag=loreal-paris&page=0:20&category=${
+    let url = `${BASE_URL}/${SEARCH}=${
       !!selectedCateg ? selectedCateg.value : ""
     }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}&sort=discount:${
       !sort ? "" : sort
@@ -375,7 +375,7 @@ class BlogPosts extends React.Component {
             <div className="modal-content m-2">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLongTitle">
-                  Filter List
+                  {en["Filter List"]}
                 </h5>
                 <button
                   type="button"
@@ -391,7 +391,7 @@ class BlogPosts extends React.Component {
                   <div className="col">
                     <ul className="list-group">
                       <li className="list-group-item">
-                        <a>Category</a>
+                        <a>{en["Category"]}</a>
                       </li>
                       {category.map((v, k) => (
                         <li key={k} className="list-group-item ">
@@ -451,7 +451,7 @@ class BlogPosts extends React.Component {
                   data-dismiss="modal"
                   className="btn btn-outline-primary  btn-block"
                 >
-                  Apply
+                  {en["Apply"]}
                 </button>
               </div>
             </div>
