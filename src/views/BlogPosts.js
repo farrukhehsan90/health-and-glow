@@ -6,6 +6,7 @@ import { request as blogpost } from "../redux/actions/blogData";
 import { Container, Row, Col, Card, CardBody, Badge } from "shards-react";
 import { BASE_URL, GET_PRODUCTS, PRODUCT, SEARCH } from "../config/WebServices";
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
+import data from "../services/data";
 import en from "../locales/en.json";
 import Pagination from "react-js-pagination";
 
@@ -21,25 +22,8 @@ class BlogPosts extends React.Component {
       res: {},
       sort: "",
       selectedCateg: "",
-      category: [
-        {
-          id: 1,
-          value: "lipstick",
-          check: false
-        }
-      ],
-      shade: [
-        {
-          id: 1,
-          value: "Maroon",
-          check: false
-        },
-        {
-          id: 2,
-          value: "Red",
-          check: false
-        }
-      ],
+      category: data.category,
+      shade: data.shade,
       PostsListOne: []
     };
   }
@@ -88,7 +72,7 @@ class BlogPosts extends React.Component {
     this.props.blogpost(url);
   };
   handleSort = () => {
-    const { shade, category, sort } = this.state;
+    const { category, shade, sort } = this.state;
     let selectedCateg = category.find(v => v.check);
     let shadeTrueValue = shade.find(v => v.check);
     let url = `${BASE_URL}/${SEARCH}=${
@@ -100,14 +84,7 @@ class BlogPosts extends React.Component {
     this.props.blogpost(url);
   };
   render() {
-    const {
-      PostsListOne,
-      itemPerPage,
-      category,
-      isRow,
-      activePage,
-      shade
-    } = this.state;
+    const { PostsListOne, itemPerPage, isRow, activePage } = this.state;
     let indexOfLastTodo = activePage * itemPerPage;
     let indexOfFirstTodo = indexOfLastTodo - itemPerPage;
     let renderedProjects = PostsListOne.slice(
@@ -393,14 +370,14 @@ class BlogPosts extends React.Component {
                       <li className="list-group-item">
                         <a>{en["Category"]}</a>
                       </li>
-                      {category.map((v, k) => (
+                      {this.state.category.map((v, k) => (
                         <li key={k} className="list-group-item ">
                           <div className="col-12">
                             <input
                               type="checkbox"
                               onChange={e => {
                                 v.check = !v.check;
-                                let newShade = [...category];
+                                let newShade = [...this.state.category];
                                 newShade[v.id - 1] = v;
                                 this.setState({ category: newShade });
                               }}
@@ -418,14 +395,14 @@ class BlogPosts extends React.Component {
                   </div>
                   <div className="col">
                     <ul className="list-group">
-                      {shade.map((v, k) => (
+                      {this.state.shade.map((v, k) => (
                         <li key={k} className="list-group-item ">
                           <div className="col-12">
                             <input
                               type="checkbox"
                               onChange={e => {
                                 v.check = !v.check;
-                                let newShade = [...shade];
+                                let newShade = [...this.state.shade];
                                 newShade[v.id - 1] = v;
                                 this.setState({ shade: newShade });
                               }}
