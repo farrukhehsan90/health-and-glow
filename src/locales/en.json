@@ -11,13 +11,13 @@
     "Filter": "Filter",
     "Favorite": "favorite",
     "Star": "star",
-    "No Data Found": "No Data Found",
-    "Sort List": "Sort List",
+    "No_Data_Found": "No Data Found",
+    "Sort_List": "Sort List",
     "Popularity": "Popularity",
     "Discount": "Discount",
-    "High - Low": " High - Low",
-    "Low - High": " Low - High",
+    "High_Low": " High - Low",
+    "Low_High": " Low - High",
     "Category": "Category",
     "Apply": "Apply",
-    "Filter List": "Filter List"
+    "Filter_List": "Filter List"
 }

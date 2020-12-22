@@ -11,7 +11,9 @@ import { Store } from "../../../flux";
 
 const MainSidebar = ({ hideLogoText }) => {
   const [menuVisible, setMenuVisible] = useState(false);
-  const [setSidebarNavItems] = useState(Store.getSidebarItems());
+  const [sidebarNavItems, setSidebarNavItems] = useState(
+    Store.getSidebarItems()
+  );
 
   useLayoutEffect(() => {
     Store.addChangeListener(onChange);

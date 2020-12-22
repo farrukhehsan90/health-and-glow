@@ -4,11 +4,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { request as blogpost } from "../redux/actions/blogData";
 import { Container, Row, Col, Card, CardBody, Badge } from "shards-react";
-import { BASE_URL, GET_PRODUCTS, PRODUCT, SEARCH } from "../config/WebServices";
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
+import Pagination from "react-js-pagination";
 import data from "../services/data";
 import en from "../locales/en.json";
-import Pagination from "react-js-pagination";
+import { BASE_URL, PRODUCT, SEARCH } from "../config/WebServices";
 
 class BlogPosts extends React.Component {
   constructor(props) {
@@ -24,11 +24,13 @@ class BlogPosts extends React.Component {
       selectedCateg: "",
       category: data.category,
       shade: data.shade,
+
       PostsListOne: []
     };
   }
   componentDidMount() {
-    let url = `${BASE_URL}/${GET_PRODUCTS}`;
+    let url =
+      "https://staging.healthandglow.com/api/catalog/product/v6/search/989?app=web&version=3.0.2&page=0:20";
 
     this.props.blogpost(url);
     // this.props.blogpost(url)
@@ -65,26 +67,31 @@ class BlogPosts extends React.Component {
     const { shade, category } = this.state;
     let selectedCateg = category.find(v => v.check);
     let shadeTrueValue = shade.find(v => v.check);
-    let url = `${BASE_URL}/${SEARCH}=${
+    let url = `${BASE_URL}/${PRODUCT}&tag=loreal-paris&page=0:20&category=${
       !!selectedCateg ? selectedCateg.value : ""
     }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}`;
 
     this.props.blogpost(url);
   };
   handleSort = () => {
-    const { category, shade, sort } = this.state;
+    const { shade, category, sort } = this.state;
     let selectedCateg = category.find(v => v.check);
     let shadeTrueValue = shade.find(v => v.check);
-    let url = `${BASE_URL}/${SEARCH}=${
+    let url = `${BASE_URL}/${SEARCH}&category=${
       !!selectedCateg ? selectedCateg.value : ""
-    }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}&sort=discount:${
-      !sort ? "" : sort
-    }`;
+    }&shade=${!!shadeTrueValue ? shadeTrueValue.value : ""}&sort=price:${sort}`;
 
     this.props.blogpost(url);
   };
   render() {
-    const { PostsListOne, itemPerPage, isRow, activePage } = this.state;
+    const {
+      PostsListOne,
+      itemPerPage,
+      category,
+      isRow,
+      activePage,
+      shade
+    } = this.state;
     let indexOfLastTodo = activePage * itemPerPage;
     let indexOfFirstTodo = indexOfLastTodo - itemPerPage;
     let renderedProjects = PostsListOne.slice(
@@ -124,7 +131,7 @@ class BlogPosts extends React.Component {
                 data-target="#exampleModalCenter"
                 className="btn btn-outline-primary  btn-block"
               >
-                {en["Sort"]}
+                {en.Sort}
               </button>
             </div>
             <div className="col-5">
@@ -134,7 +141,7 @@ class BlogPosts extends React.Component {
                 data-target="#exampleModalCenter1"
                 className="btn btn-outline-primary  btn-block"
               >
-                {en["Filter"]}
+                {en.Filter}
               </button>
             </div>
           </div>
@@ -166,7 +173,7 @@ class BlogPosts extends React.Component {
                       style={{ color: "red", marginLeft: -10 }}
                       className="material-icons"
                     >
-                      {en["Favorite"]}
+                      {en.Favorite}
                     </span>
                     {/* <div className="card-post__author d-flex">
                     <a
@@ -204,8 +211,8 @@ class BlogPosts extends React.Component {
                             style={{ fontSize: 14 }}
                             className="material-icons"
                           >
-                            {en["Star"]}
-                          </span>
+                            {en.Star}
+                          </span>{" "}
                           {post.skuAverageRating ? post.skuAverageRating : 0}
                         </h6>
                       </div>
@@ -217,7 +224,7 @@ class BlogPosts extends React.Component {
           ) : (
             <Card small className="card-post card-post--1 my-10 btn-block">
               <CardBody>
-                <h3 className="mx-10">{en["Not Data Found"]}</h3>
+                <h3 className="mx-10">{en.No_Data_Found}</h3>
               </CardBody>
             </Card>
           )}
@@ -242,7 +249,7 @@ class BlogPosts extends React.Component {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLongTitle">
-                  {en["Sort List"]}
+                  {en.Sort_List}
                 </h5>
                 <button
                   type="button"
@@ -269,7 +276,7 @@ class BlogPosts extends React.Component {
                         className="form-check-label w-100"
                         htmlFor="popula"
                       >
-                        {en["Popularity"]}
+                        {en.Popularity}
                       </label>
                     </div>
                   </li>
@@ -284,7 +291,7 @@ class BlogPosts extends React.Component {
                         onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="desc">
-                        {en["Discount"]}
+                        {en.Discount}
                       </label>
                     </div>
                   </li>
@@ -295,11 +302,11 @@ class BlogPosts extends React.Component {
                         type="radio"
                         name="sort"
                         id="hlac"
-                        value="asc"
+                        value="desc"
                         onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="hlac">
-                        {en["High - Low"]}
+                        {en.High_Low}
                       </label>
                     </div>
                   </li>
@@ -310,11 +317,11 @@ class BlogPosts extends React.Component {
                         type="radio"
                         name="sort"
                         id="lhac"
-                        value="desc"
+                        value="asc"
                         onChange={e => this.setState({ sort: e.target.value })}
                       />
                       <label className="form-check-label w-100" htmlFor="lhac">
-                        {en["Low - High"]}
+                        {en.Low_High}
                       </label>
                     </div>
                   </li>
@@ -328,7 +335,7 @@ class BlogPosts extends React.Component {
                   className="btn btn-outline-primary btn-block"
                   onClick={() => this.handleSort()}
                 >
-                  {en["Sort"]}
+                  {en.Sort}
                 </button>
               </div>
             </div>
@@ -352,7 +359,7 @@ class BlogPosts extends React.Component {
             <div className="modal-content m-2">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLongTitle">
-                  {en["Filter List"]}
+                  {en.Filter_List}
                 </h5>
                 <button
                   type="button"
@@ -368,16 +375,16 @@ class BlogPosts extends React.Component {
                   <div className="col">
                     <ul className="list-group">
                       <li className="list-group-item">
-                        <a>{en["Category"]}</a>
+                        <a>{en.Category}</a>
                       </li>
-                      {this.state.category.map((v, k) => (
+                      {category.map((v, k) => (
                         <li key={k} className="list-group-item ">
                           <div className="col-12">
                             <input
                               type="checkbox"
                               onChange={e => {
                                 v.check = !v.check;
-                                let newShade = [...this.state.category];
+                                let newShade = [...category];
                                 newShade[v.id - 1] = v;
                                 this.setState({ category: newShade });
                               }}
@@ -395,14 +402,14 @@ class BlogPosts extends React.Component {
                   </div>
                   <div className="col">
                     <ul className="list-group">
-                      {this.state.shade.map((v, k) => (
+                      {shade.map((v, k) => (
                         <li key={k} className="list-group-item ">
                           <div className="col-12">
                             <input
                               type="checkbox"
                               onChange={e => {
                                 v.check = !v.check;
-                                let newShade = [...this.state.shade];
+                                let newShade = [...shade];
                                 newShade[v.id - 1] = v;
                                 this.setState({ shade: newShade });
                               }}
@@ -428,7 +435,7 @@ class BlogPosts extends React.Component {
                   data-dismiss="modal"
                   className="btn btn-outline-primary  btn-block"
                 >
-                  {en["Apply"]}
+                  {en.Apply}
                 </button>
               </div>
             </div>
