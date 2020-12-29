@@ -8,7 +8,7 @@ import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import Pagination from "react-js-pagination";
 import data from "../services/data";
 import en from "../locales/en.json";
-import { BASE_URL, PRODUCT, SEARCH } from "../config/WebServices";
+import { BASE_URL, PRODUCT, GET_PRODUCTS, SEARCH } from "../config/WebServices";
 
 class BlogPosts extends React.Component {
   constructor(props) {
@@ -29,8 +29,7 @@ class BlogPosts extends React.Component {
     };
   }
   componentDidMount() {
-    let url =
-      "https://staging.healthandglow.com/api/catalog/product/v6/search/989?app=web&version=3.0.2&page=0:20";
+    let url = `${BASE_URL}/${GET_PRODUCTS}`;
 
     this.props.blogpost(url);
     // this.props.blogpost(url)
