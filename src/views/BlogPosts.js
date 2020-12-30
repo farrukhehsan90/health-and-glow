@@ -32,7 +32,6 @@ class BlogPosts extends React.Component {
     let url = `${BASE_URL}/${GET_PRODUCTS}`;
 
     this.props.blogpost(url);
-    // this.props.blogpost(url)
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -47,7 +46,6 @@ class BlogPosts extends React.Component {
   }
 
   handlePageChange = pageNumber => {
-    // console.log(`active page is ${pageNumber}`);
     this.setState({ activePage: pageNumber });
   };
   searchFun = () => {
@@ -57,6 +55,7 @@ class BlogPosts extends React.Component {
       let url = `${BASE_URL}/${PRODUCT}&tag=${this.state.search}&page=0:20`;
 
       this.props.blogpost(url);
+      console.log("checking", this.props.blogpost(url));
     } else {
       alert("No Search Text");
     }

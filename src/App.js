@@ -5,8 +5,7 @@ import routes from "./routes";
 import withTracker from "./withTracker";
 import { Provider } from "react-redux";
 import Store from "./redux/store";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./health-and-glow-dashboard/styles/shards-dashboards.1.1.0.min.css";
+import "./styles/shards-dashboards.1.1.0.min.css";
 const store = Store();
 
 export default () => {
